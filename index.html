@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toma de decisiones · Equipo 2</title>
+<style>
+:root{--bg:#e6ebf1;--paper:#fff;--card:#f6f8fb;--ink:#1c2733;--mute:#5b6776;--gd:#b08a3a;--ac:#17375e;--line:#d0d8e2;--hd:#0e2a47;--hdink:#f2f5f9;--zb:#f1f4f8}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#08121f;--paper:#10243a;--card:#16304d;--ink:#e9eff6;--mute:#a8b6c8;--gd:#d4ae60;--ac:#d4ae60;--line:#27425f;--hd:#071320;--zb:#14293f}}
+:root[data-theme=dark]{--bg:#08121f;--paper:#10243a;--card:#16304d;--ink:#e9eff6;--mute:#a8b6c8;--gd:#d4ae60;--ac:#d4ae60;--line:#27425f;--hd:#071320;--zb:#14293f}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font:clamp(15px,1.55vw,20px)/1.55 Calibri,"Segoe UI",Helvetica,Arial,sans-serif;display:flex;flex-direction:column}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0;line-height:1.2}
+h2{font-size:clamp(26px,3.8vw,44px);color:var(--ac);margin-bottom:.7em;padding-bottom:.4em;position:relative}
+h2::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--line)}
+h2::before{content:"";position:absolute;left:0;bottom:-1px;width:72px;height:3px;background:var(--gd);z-index:1}
+h3{font-size:1.02em;margin-bottom:.3em;color:var(--ac)}
+header{background:var(--hd);color:var(--hdink);display:flex;align-items:center;gap:1em;padding:.6em 1.4em;font-size:.8em;border-bottom:3px solid var(--gd)}
+header b{color:var(--gd);letter-spacing:.1em;font-family:Georgia,serif} header .sp{flex:1}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:3px;padding:.3em 1em}
+button:hover{border-color:var(--gd);color:var(--gd)}
+header button{background:transparent;color:var(--hdink);border-color:#ffffff4d}
+button:focus-visible,summary:focus-visible{outline:3px solid var(--gd);outline-offset:2px}
+#bar{height:3px;background:var(--line)} #bar i{display:block;height:100%;width:0;background:var(--gd);transition:width .3s}
+main{flex:1;overflow:auto;padding:clamp(.8em,2.5vw,2em)}
+.slide{display:none;max-width:1120px;margin:auto}
+.slide.on{display:block;background:var(--paper);border:1px solid var(--line);border-top:4px solid var(--ac);padding:clamp(1.2em,3.5vw,2.8em) clamp(1.2em,4vw,3.4em);min-height:100%}
+.lead{color:var(--mute);max-width:64ch;margin:.2em 0 .9em}
+.g{display:grid;gap:1em;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.c{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gd);border-radius:3px;padding:.8em 1.1em}
+.c p{margin:.25em 0 0;color:var(--mute);font-size:.93em}
+.c p b{color:var(--ink)}
+.box{background:var(--hd);color:var(--hdink);border-left:5px solid var(--gd);border-radius:3px;padding:1em 1.4em;margin-top:1.1em}
+.box b{color:var(--gd)}
+.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.93em}
+th,td{border:1px solid var(--line);padding:.55em .9em;text-align:left}
+th{background:var(--hd);color:var(--hdink);font-family:Georgia,serif;font-weight:700}
+tr:nth-child(even) td{background:var(--zb)}
+td:first-child{font-weight:700;color:var(--ac)}
+.steps{display:flex;flex-wrap:wrap;gap:.7em;margin:1em 0;padding:0;list-style:none;counter-reset:s}
+.steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:3px;padding:.6em .9em;flex:1 1 150px}
+.steps li::before{content:counter(s);display:inline-grid;place-items:center;width:1.7em;height:1.7em;border-radius:50%;background:var(--hd);color:var(--gd);border:1px solid var(--gd);margin-right:.5em;font:700 .9em Georgia,serif}
+.slide.on:has(.cover){background:var(--hd);border:0;padding:clamp(.8em,2.5vw,2em)}
+.cover{color:var(--hdink);border:1px solid var(--gd);outline:1px solid var(--gd);outline-offset:-10px;padding:clamp(2em,6vw,4.5em);text-align:center}
+.cover h1{font-size:clamp(34px,7vw,80px);letter-spacing:.02em}
+.cover hr{width:90px;border:0;border-top:3px solid var(--gd);margin:1.2em auto}
+.cover p{color:#cdd6e3;margin:.5em auto;max-width:70ch}
+.opt{display:flex;align-items:center;gap:.8em;margin:.6em 0}
+.opt b{width:2em;height:2em;display:grid;place-items:center;border:2px solid var(--gd);color:var(--gd);flex:none;font-family:Georgia,serif;border-radius:50%}
+.opt .t{flex:1}.opt .bar{height:8px;background:var(--line);margin-top:.25em;border-radius:4px}.opt .bar i{display:block;height:100%;background:var(--ac);width:0;transition:width .3s;border-radius:4px}
+details{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gd);padding:.4em 1em;margin:.4em 0;font-size:.93em;border-radius:3px}
+summary{cursor:pointer;font-weight:700;color:var(--ac)} details p{margin:.4em 0;color:var(--mute)}
+footer{display:flex;gap:.6em;align-items:center;padding:.5em 1.4em;background:var(--hd);color:var(--hdink);font-size:.8em;border-top:3px solid var(--gd)}
+footer button{background:transparent;color:var(--hdink);border-color:#ffffff4d}
+footer .sp{flex:1} footer #mt{color:var(--gd)}
+ul{padding-left:1.1em;margin:.3em 0}
+small{color:var(--mute)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header><b>EQ 2</b><span>Toma de decisiones</span><span class="sp"></span><span id="tm">20:00</span><button id="tg">Iniciar</button><button id="th" aria-label="Cambiar tema">Tema</button></header>
+<div id="bar"><i></i></div>
+<main>
+<section class="slide"><div class="cover"><h1>Toma de decisiones</h1><hr><p>Qué es, cómo se hace y cómo aplicarla</p>
+<p>Ceron Ponce Jesús Salatiel · Galindo Estrella Ángel Santiago · Escamilla Victoria Erika · Hernández Pineda Valeria Quetzaly · Hernández Ceseña Paulo Jacobo · Pérez Martínez Leonardo</p>
+<p><small style="color:#cfd5e2">Administración · Equipo 2</small></p></div></section>
+
+<section class="slide"><h2>Introducción</h2>
+<div class="box" style="margin-top:0">Para solucionar un problema, cualquier persona debe aplicar el proceso de toma de decisiones.</div>
+<h3 style="margin:1em 0 .5em">Decidimos todos los días</h3>
+<div class="g"><div class="c"><h3>Elegir qué carrera estudiar</h3><p>Cambia el rumbo de una vida.</p></div><div class="c"><h3>Cambiar de empleo</h3><p>Afecta ingresos, tiempo y futuro.</p></div><div class="c"><h3>Lanzar un nuevo producto</h3><p>Compromete recursos de una organización.</p></div></div>
+<p class="lead" style="margin-top:1em">Estudiante, empleado o director: existe un proceso que ayuda a decidir mejor.</p></section>
+
+<section class="slide"><h2>¿Qué es la toma de decisiones?</h2>
+<p class="lead">Elegir la mejor alternativa entre varias opciones para resolver un problema o alcanzar un objetivo.</p>
+<ol class="steps"><li><b>Problema u objetivo</b></li><li><b>Varias alternativas</b></li><li><b>La mejor opción</b></li></ol>
+<div class="g"><div class="c"><h3>Ejemplo</h3><p>Elegir universidad: tres alternativas; gana la que convenga por costo, ubicación y plan de estudios.</p></div><div class="c"><h3>Con una sola opción</h3><p>No hay decisión, hay obligación. Y no decidir también es decidir: dejar pasar el tiempo tiene consecuencias.</p></div></div>
+<div class="box">Se da en la vida personal y, sobre todo, en las organizaciones: cada decisión afecta recursos, personas y resultados.</div></section>
+
+<section class="slide"><h2>Importancia de decidir bien</h2>
+<p class="lead">El éxito o el fracaso de cualquier proyecto, o de tu vida personal, depende de la calidad de tus decisiones.</p>
+<div class="g"><div class="c"><h3>Definir el rumbo</h3><p>Transforma planes y objetivos en acciones concretas.</p></div><div class="c"><h3>Optimizar los recursos</h3><p>Asigna tiempo y dinero donde generen mayor impacto. Ej.: una tienda que elige mal en qué invertir se queda con inventario sin vender.</p></div><div class="c"><h3>Reducir la incertidumbre</h3><p>Anticipa riesgos y permite responder rápido. Ej.: prever la demanda de temporada alta.</p></div><div class="c"><h3>Impulsar la mejora continua</h3><p>Cada decisión evaluada deja aprendizaje.</p></div></div>
+<div class="box">Decidir mal cuesta: pérdidas de dinero, de tiempo y hasta de credibilidad.</div></section>
+
+<section class="slide"><h2>Personales vs. organizacionales</h2>
+<p class="lead">La diferencia está en quién decide, a quién afecta y qué criterios predominan.</p>
+<div class="wrap"><table><tr><th>Criterio</th><th>Personales</th><th>Organizacionales</th></tr>
+<tr><td>Alcance e impacto</td><td>El individuo o su círculo cercano</td><td>Toda la empresa, equipos, clientes o socios</td></tr>
+<tr><td>Criterios</td><td>Valores, emociones y metas de vida</td><td>Datos, rentabilidad, estrategia y políticas</td></tr>
+<tr><td>Responsabilidad</td><td>Recae sobre uno mismo</td><td>Se rinde cuentas a directivos, socios o áreas</td></tr>
+<tr><td>Ejemplos</td><td>Elegir carrera o cambiar de empleo</td><td>Lanzar un producto o recortar el presupuesto operativo</td></tr></table></div>
+<div class="box">Una misma decisión puede ser de ambos tipos: renunciar es personal, pero también afecta a la organización. Las organizacionales se documentan y se justifican.</div></section>
+
+<section class="slide"><h2>Programadas vs. no programadas</h2>
+<p class="lead">Depende de la frecuencia y la complejidad del problema.</p>
+<div class="wrap"><table><tr><th>Criterio</th><th>Programadas</th><th>No programadas</th></tr>
+<tr><td>Naturaleza</td><td>Repetitivas, rutinarias, bien estructuradas</td><td>Nuevas, complejas, únicas o de alto riesgo</td></tr>
+<tr><td>Cómo se resuelven</td><td>Reglas, manuales, políticas o procedimientos</td><td>Análisis profundo, criterio directivo y creatividad</td></tr>
+<tr><td>Nivel jerárquico</td><td>Operativo o sistemas automatizados</td><td>Alta dirección o gerencia</td></tr>
+<tr><td>Ejemplos</td><td>Aprobar un reembolso estándar; reponer inventario mínimo</td><td>Entrar a un mercado internacional; gestionar una crisis de marca</td></tr></table></div>
+<div class="box">Una decisión no programada puede volverse programada: si el problema se repite, la empresa crea un procedimiento.</div></section>
+
+<section class="slide"><h2>Modelos de decisión</h2>
+<div class="g"><div class="c"><h3>Racional</h3><p>Datos objetivos, análisis lógico y evaluación de todas las alternativas para maximizar resultados.</p><p><b>Ideal:</b> decisiones complejas con tiempo, como una junta directiva. <b>Límite:</b> puede tardar demasiado.</p></div>
+<div class="c"><h3>Intuitivo</h3><p>Experiencia acumulada, instinto y reconocimiento rápido de patrones.</p><p><b>Ideal:</b> emergencias o información incompleta, como un médico de urgencias. <b>Riesgo:</b> los sesgos.</p></div>
+<div class="c"><h3>Por consenso</h3><p>Busca el acuerdo y el compromiso de todo el grupo antes de actuar.</p><p><b>Ideal:</b> equipos que requieren compromiso. Tarda más, pero logra mayor aceptación.</p></div></div>
+<div class="box">En la práctica, los modelos se combinan según la situación.</div></section>
+
+<section class="slide"><h2>El proceso en 7 pasos</h2>
+<ol class="steps"><li><b>Identificar el problema</b></li><li><b>Reunir información</b></li><li><b>Plantear alternativas</b></li><li><b>Evaluar alternativas</b></li><li><b>Elegir</b></li><li><b>Implementar</b></li><li><b>Evaluar resultados</b></li></ol>
+<div class="g"><div class="c"><h3>Parte 1 · Pasos 1 a 3</h3><p>Preparar la decisión.</p></div><div class="c"><h3>Parte 2 · Pasos 4 a 7</h3><p>Seleccionar, ejecutar y controlar.</p></div></div>
+<div class="box">Es un proceso cíclico: si los resultados no son los esperados, se vuelve a empezar. Sirve para decisiones grandes y pequeñas; solo cambia el tiempo dedicado.</div></section>
+
+<section class="slide"><h2>Proceso, parte 1</h2>
+<div class="g"><div class="c"><h3>1. Identificar el problema</h3><p>Detectar la situación u oportunidad que exige decidir. Es el paso clave: no confundir síntoma con causa (si bajan las ventas, la causa real puede ser el precio o la competencia).</p><p><b>Ejemplo:</b> poco tiempo para estudiar tres materias.</p></div>
+<div class="c"><h3>2. Reunir información</h3><p>Datos claros, actuales y verídicos: encuestas, reportes, estadísticas, opiniones de expertos.</p><p><b>Ejemplo:</b> revisar fechas de exámenes y temas.</p></div>
+<div class="c"><h3>3. Plantear alternativas</h3><p>Opciones posibles y viables; siempre más de una. Técnica útil: lluvia de ideas.</p><p><b>Ejemplo:</b> estudiar todo igual, priorizar la difícil o hacer grupos.</p></div></div></section>
+
+<section class="slide"><h2>Evaluación de alternativas</h2>
+<p class="lead">Análisis sistemático de cada opción con criterios definidos de antemano, para elegir la de mayor beneficio con el menor costo y riesgo.</p>
+<div class="g"><div class="c"><h3>Eficacia</h3><p>Capacidad de resolver el problema.</p></div><div class="c"><h3>Eficiencia</h3><p>Resultados frente a recursos usados.</p></div><div class="c"><h3>Costo</h3><p>Inversión económica y esfuerzo.</p></div><div class="c"><h3>Tiempo</h3><p>Rapidez de implementación y resultados.</p></div><div class="c"><h3>Riesgo</h3><p>Probabilidad de consecuencias negativas.</p></div><div class="c"><h3>Impacto</h3><p>Efectos en la organización, trabajadores y clientes.</p></div></div>
+<div class="box"><b>Herramientas:</b> ventajas y desventajas, matriz de decisión (gana la que suma más), costo-beneficio y ponderación de criterios (más peso al más importante, por ejemplo el costo si el presupuesto es limitado).</div></section>
+
+<section class="slide"><h2>Elección de la alternativa</h2>
+<p class="lead">Seleccionar la opción que, tras la evaluación, resulta la más conveniente para alcanzar el objetivo.</p>
+<div class="g"><div class="c"><h3>Fundamentada</h3><p>En información confiable.</p></div><div class="c"><h3>Coherente</h3><p>Con los objetivos y valores de la organización.</p></div><div class="c"><h3>Viable</h3><p>En tiempo, recursos y capacidad.</p></div><div class="c"><h3>Respaldada</h3><p>Por quienes la van a ejecutar; involucrarlos reduce la resistencia.</p></div></div>
+<div class="box">No siempre se elige la alternativa perfecta, sino la más adecuada dentro de las condiciones reales. Conviene dejar por escrito la decisión y sus razones.</div></section>
+
+<section class="slide"><h2>Implementación</h2>
+<p class="lead">Aquí la decisión se convierte en acción: sin esta fase, el proceso se queda solo en planeación.</p>
+<div class="g"><div class="c"><h3>Plan de acción</h3><p>Qué, cómo, cuándo y quién.</p></div><div class="c"><h3>Asignación de recursos</h3><p>Presupuesto, materiales, personal y tecnología.</p></div><div class="c"><h3>Comunicación</h3><p>Informar con claridad a todos los involucrados.</p></div><div class="c"><h3>Supervisión</h3><p>Seguimiento con indicadores, como el avance semanal.</p></div><div class="c"><h3>Compromiso</h3><p>Participación y responsabilidad del equipo.</p></div></div>
+<div class="box"><b>Principales causas de fracaso:</b> resistencia al cambio, falta de comunicación y mala distribución de recursos.</div></section>
+
+<section class="slide"><h2>Evaluación de resultados</h2>
+<p class="lead">Control final: comparar los resultados obtenidos con los objetivos planteados al inicio.</p>
+<div class="g"><div class="c"><h3>Preguntas clave</h3><ul><li>¿Se resolvió el problema?</li><li>¿Se cumplieron objetivos en tiempo y forma?</li><li>¿Los costos fueron los esperados?</li><li>¿Hubo consecuencias no previstas?</li></ul></div>
+<div class="c"><h3>Mantener</h3><p>Resultados favorables: se continúa.</p></div><div class="c"><h3>Corregir</h3><p>Desviaciones menores: se ajusta.</p></div><div class="c"><h3>Cambiar</h3><p>Resultados desfavorables: se reinicia con otra alternativa.</p></div></div>
+<div class="box">Un proceso cíclico, dinámico y de mejora continua; no un acto aislado. Sin evaluar no se corrige a tiempo ni se aprende.</div></section>
+
+<section class="slide"><h2>Cierre del proceso</h2>
+<div class="box" style="font-size:1.25em;margin-top:.5em">La evaluación, elección, implementación y evaluación de resultados aseguran que la decisión no se tome por intuición o improvisación, sino mediante un análisis estructurado que incrementa la probabilidad de éxito y permite corregir oportunamente los errores.</div>
+<p class="lead" style="margin-top:1em">Una decisión es tan buena como su ejecución y su control.</p></section>
+
+<section class="slide"><h2>Requisitos para decidir bien</h2>
+<div class="g"><div class="c"><h3>Información confiable</h3><p>Datos claros, actuales y verídicos.</p></div><div class="c"><h3>Objetivos definidos</h3><p>Saber qué se quiere lograr.</p></div><div class="c"><h3>Alternativas reales</h3><p>Opciones viables; siempre más de una.</p></div><div class="c"><h3>Criterios de evaluación</h3><p>Costo, tiempo, riesgo e impacto.</p></div><div class="c"><h3>Capacidad de análisis</h3><p>Interpretar y razonar con juicio.</p></div><div class="c"><h3>Responsabilidad</h3><p>Asumir las consecuencias de lo decidido.</p></div></div>
+<div class="box">Ejemplo, elegir universidad: planes de estudio (información), la carrera deseada (objetivo), tres universidades (alternativas), costo y ubicación (criterios).</div></section>
+
+<section class="slide"><h2>Importancia del caso práctico</h2>
+<p class="lead">Un caso es una simulación realista: permite practicar sin arriesgar dinero ni personas.</p>
+<div class="g"><div class="c"><h3>Resolver problemas</h3><p>Identificar las causas de una situación que afecta a la empresa.</p></div><div class="c"><h3>Aprovechar recursos</h3><p>Usar bien el dinero, el personal y el tiempo.</p></div><div class="c"><h3>Reducir riesgos</h3><p>Analizar consecuencias antes de implementar.</p></div><div class="c"><h3>Alcanzar objetivos</h3><p>Establecer estrategias que mejoren los resultados.</p></div><div class="c"><h3>Evaluar el desempeño</h3><p>Comprobar si las decisiones realmente funcionan.</p></div></div></section>
+
+<section class="slide"><h2>Caso práctico: exámenes finales</h2>
+<ol class="steps"><li><b>Identificar el problema</b><br><small>Poco tiempo para estudiar tres materias.</small></li><li><b>Reunir información</b><br><small>Fechas de exámenes y temas.</small></li><li><b>Plantear alternativas</b><br><small>Todo por igual, priorizar la difícil o hacer grupos.</small></li><li><b>Evaluar alternativas</b><br><small>Qué método aprovecha mejor el tiempo (tiempo, riesgo, eficacia).</small></li><li><b>Elegir</b><br><small>Horario priorizando las materias más complicadas.</small></li><li><b>Implementar</b><br><small>Cumplir el horario y repasar a diario.</small></li><li><b>Evaluar resultados</b><br><small>Revisar calificaciones; si salen mal, corregir y repetir.</small></li></ol></section>
+
+<section class="slide"><h2>Pregunta para el grupo</h2>
+<p class="lead">Si tuvieran tres exámenes finales en una misma semana, ¿qué harían? Voten levantando la mano.</p>
+<div id="poll"></div><button id="rv">Ver análisis</button>
+<div class="box" id="an" hidden><b>Análisis:</b> al explicar sus razones usaron criterios de evaluación (tiempo, riesgo, eficacia). No hay una única respuesta correcta; una opción que suele funcionar es combinar la A y la D dentro de un horario.</div></section>
+
+<section class="slide"><h2>Conclusión</h2>
+<div class="box" style="margin-top:0">La toma de decisiones es una de las cuatro fases fundamentales del proceso administrativo.</div><br>
+<div class="g"><div class="c"><h3>Analiza</h3><p>Diferentes situaciones y permite seleccionar las mejores alternativas.</p></div><div class="c"><h3>Establece</h3><p>Las acciones para alcanzar los objetivos de la organización.</p></div><div class="c"><h3>Influye</h3><p>Directamente en la planeación, la organización y la dirección de los recursos.</p></div></div></section>
+
+<section class="slide"><h2>Para recordar en general</h2>
+<div class="box" style="font-size:1.35em;margin-top:.5em">Tomar decisiones no es tirar una moneda al aire, sino seguir el proceso correcto para tener los resultados correctos.</div>
+<p class="lead" style="margin-top:1.2em">Muchas gracias por su atención. ¿Tienen alguna pregunta?</p></section>
+
+<section class="slide"><h2>Preguntas posibles</h2>
+<details><summary>¿Qué es la toma de decisiones?</summary><p>Elegir la mejor alternativa entre varias para resolver un problema o lograr un objetivo.</p></details>
+<details><summary>¿Cuáles son los pasos del proceso?</summary><p>Identificar el problema, reunir información, plantear alternativas, evaluar, elegir, implementar y evaluar resultados.</p></details>
+<details><summary>¿Por qué es importante decidir bien?</summary><p>Cada decisión afecta recursos, personas y resultados; de su calidad depende el éxito o el fracaso.</p></details>
+<details><summary>¿Qué se necesita para decidir bien?</summary><p>Información confiable, objetivos claros, alternativas reales, criterios, capacidad de análisis y responsabilidad.</p></details>
+<details><summary>¿Qué pasa si no se evalúan los resultados?</summary><p>No sabemos si funcionó, no corregimos a tiempo ni aprendemos. Ej.: lanzar un producto y nunca revisar las ventas.</p></details>
+<details><summary>¿Qué pasa si no hay suficiente información?</summary><p>Se decide con la mejor información disponible y se ajusta después evaluando los resultados.</p></details>
+<details><summary>¿Diferencia entre programada y no programada?</summary><p>La programada es repetitiva y se resuelve con reglas; la no programada es nueva, compleja o de alto riesgo.</p></details>
+<details><summary>¿Cuál modelo es mejor?</summary><p>Depende: racional con tiempo y datos, intuitivo en emergencias, consenso cuando se necesita compromiso.</p></details>
+<details><summary>¿Por qué es un proceso cíclico?</summary><p>Al evaluar se puede mantener, corregir o cambiar; si hay que cambiar, se reinicia el proceso.</p></details>
+<details><summary>¿Qué es una matriz de decisión?</summary><p>Tabla que califica cada alternativa según los criterios; gana la que obtiene el mejor resultado.</p></details>
+<details><summary>¿Qué pasa si solo hay una alternativa?</summary><p>No hay decisión, hay obligación; por eso se requieren alternativas reales.</p></details></section>
+</main>
+<footer><button id="pv">Anterior</button><button id="nx">Siguiente</button><span class="sp"></span><span id="mt"></span></footer>
+
+<script>
+(function(){
+var S=[].slice.call(document.querySelectorAll('.slide')),i=0,
+bar=document.querySelector('#bar i'),mt=document.getElementById('mt');
+function show(n){
+i=Math.max(0,Math.min(S.length-1,n));
+S.forEach(function(s,k){s.classList.toggle('on',k===i)});
+bar.style.width=((i+1)/S.length*100)+'%';
+mt.textContent=(i+1)+' / '+S.length;
+document.querySelector('main').scrollTop=0;
+try{location.hash='s'+(i+1)}catch(e){}
+}
+document.getElementById('nx').onclick=function(){show(i+1)};
+document.getElementById('pv').onclick=function(){show(i-1)};
+document.addEventListener('keydown',function(e){
+if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();show(i+1)}
+if(e.key==='ArrowLeft'||e.key==='PageUp'){show(i-1)}
+});
+var h=parseInt((location.hash||'').replace('#s',''),10);show(h?h-1:0);
+
+var secs=1200,run=null,tm=document.getElementById('tm'),tg=document.getElementById('tg');
+function fmt(){var m=Math.floor(secs/60),s=secs%60;tm.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;tm.style.color=secs<=120?'#e8a92c':''}
+tg.onclick=function(){
+if(run){clearInterval(run);run=null;tg.textContent='Reanudar'}
+else{tg.textContent='Pausar';run=setInterval(function(){if(secs>0){secs--;fmt()}else{clearInterval(run)}},1000)}
+};
+document.getElementById('th').onclick=function(){
+var r=document.documentElement,d=r.dataset.theme==='dark'||(!r.dataset.theme&&matchMedia('(prefers-color-scheme:dark)').matches);
+r.dataset.theme=d?'light':'dark'};
+
+var O=['Estudiar primero la materia más difícil','Dedicar el mismo tiempo a todas','Estudiar solo la del examen más próximo','Organizar grupos de estudio'],
+v=[0,0,0,0],p=document.getElementById('poll');
+function draw(){
+var t=v.reduce(function(a,b){return a+b},0)||1;
+p.innerHTML=O.map(function(x,k){return '<div class="opt"><b>'+'ABCD'[k]+'</b><div class="t">'+x+' <small>('+v[k]+')</small><div class="bar"><i style="width:'+(v[k]/t*100)+'%"></i></div></div><button data-k="'+k+'" aria-label="Sumar voto a '+'ABCD'[k]+'">+1</button></div>'}).join('')}
+p.onclick=function(e){var k=e.target.dataset.k;if(k!==undefined){v[k]++;draw()}};
+draw();
+document.getElementById('rv').onclick=function(){document.getElementById('an').hidden=false};
+})();
+</script>
+</body>
+</html>
