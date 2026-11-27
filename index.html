@@ -48,6 +48,8 @@ td:first-child{font-weight:700;color:var(--ac)}
 .cover hr{width:90px;border:0;border-top:3px solid var(--gd);margin:1.2em auto}
 .cover p{color:#D4CCC1;margin:.5em auto;max-width:70ch}
 .cover .sub{font-size:1.15em;font-style:italic;max-width:48ch}.cover .meta{font-size:.95em;line-height:1.7}.cover .meta b{color:var(--gd)}.cover .int{margin-top:1.4em;font:700 1em Georgia,serif;color:var(--gd);letter-spacing:.08em}.names{list-style:none;padding:0;margin:.3em 0 1.2em;line-height:1.8}.names li{border-bottom:1px solid #ffffff22;max-width:26em;margin:0 auto;padding:.1em 0}.names li:last-child{border:0}
+.chip{display:inline-block;margin:0 0 .9em;padding:.2em .8em;border:1px solid var(--gd);border-left:4px solid var(--gd);border-radius:3px;font-size:.78em;color:var(--ac2);background:var(--card)}
+#sec{font-size:.95em}
 .opt{display:flex;align-items:center;gap:.8em;margin:.6em 0}
 .opt b{width:2em;height:2em;display:grid;place-items:center;border:2px solid var(--ac2);color:var(--ac2);flex:none;font-family:Georgia,serif;border-radius:50%}
 .opt .t{flex:1}.opt .bar{height:8px;background:var(--line);margin-top:.25em;border-radius:4px}.opt .bar i{display:block;height:100%;background:var(--ac2);width:0;transition:width .3s;border-radius:4px}
@@ -62,7 +64,7 @@ small{color:var(--mute)}
 </style>
 </head>
 <body>
-<header><b>EQ 2</b><span>Toma de decisiones</span><span class="sp"></span><span id="tm">20:00</span><button id="tg">Iniciar</button><button id="th" aria-label="Cambiar tema">Tema</button></header>
+<header><b>EQ 2</b><span id="sec">Toma de decisiones</span><span class="sp"></span><span id="tm">20:00</span><button id="tg">Iniciar</button><button id="th" aria-label="Cambiar tema">Tema</button></header>
 <div id="bar"><i></i></div>
 <main>
 <section class="slide"><div class="cover"><h1>Toma de decisiones</h1><hr>
@@ -152,6 +154,27 @@ small{color:var(--mute)}
 <div class="g"><div class="c"><h3>Información confiable</h3><p>Datos claros, actuales y verídicos.</p></div><div class="c"><h3>Objetivos definidos</h3><p>Saber qué se quiere lograr.</p></div><div class="c"><h3>Alternativas reales</h3><p>Opciones viables; siempre más de una.</p></div><div class="c"><h3>Criterios de evaluación</h3><p>Costo, tiempo, riesgo e impacto.</p></div><div class="c"><h3>Capacidad de análisis</h3><p>Interpretar y razonar con juicio.</p></div><div class="c"><h3>Responsabilidad</h3><p>Asumir las consecuencias de lo decidido.</p></div></div>
 <div class="box">Ejemplo, elegir universidad: planes de estudio (información), la carrera deseada (objetivo), tres universidades (alternativas), costo y ubicación (criterios).</div></section>
 
+<section class="slide"><h2>Requisitos en la práctica</h2>
+<p class="lead">Ejemplo: elegir en qué universidad estudiar.</p>
+<div class="wrap"><table><tr><th>Requisito</th><th>Cómo se ve en el ejemplo</th></tr>
+<tr><td>Información confiable</td><td>Planes de estudio, costos y reconocimiento oficial de cada universidad</td></tr>
+<tr><td>Objetivos definidos</td><td>Estudiar la carrera que quiero y terminarla en el tiempo previsto</td></tr>
+<tr><td>Alternativas reales</td><td>Tres universidades a las que sí puedo ingresar</td></tr>
+<tr><td>Criterios de evaluación</td><td>Costo, ubicación y plan de estudios</td></tr>
+<tr><td>Capacidad de análisis</td><td>Comparar las tres con ventajas y desventajas o una matriz de decisión</td></tr>
+<tr><td>Responsabilidad</td><td>Asumir mi elección y sus consecuencias</td></tr></table></div>
+<div class="box">En una empresa se aplican igual: cambia el tamaño de la decisión, no el método.</div></section>
+
+<section class="slide"><h2>¿Qué pasa si falta un requisito?</h2>
+<div class="wrap"><table><tr><th>Si falta…</th><th>Consecuencia</th><th>Ejemplo</th></tr>
+<tr><td>Información confiable</td><td>Se decide a ciegas</td><td>Invertir en un negocio sin conocer el mercado</td></tr>
+<tr><td>Objetivos definidos</td><td>Cualquier opción parece buena</td><td>Cambiar de empleo sin saber qué se busca</td></tr>
+<tr><td>Alternativas reales</td><td>No hay decisión, hay obligación</td><td>Una sola opción disponible</td></tr>
+<tr><td>Criterios de evaluación</td><td>No se pueden comparar las opciones</td><td>Elegir por impulso o por el precio</td></tr>
+<tr><td>Capacidad de análisis</td><td>Se interpretan mal los datos</td><td>Tener buenos datos y leerlos mal</td></tr>
+<tr><td>Responsabilidad</td><td>Nadie se compromete con el resultado</td><td>Culpar a otros cuando sale mal</td></tr></table></div>
+<div class="box">Con los seis requisitos, las decisiones dejan de ser improvisadas.</div></section>
+
 <section class="slide"><h2>Importancia del caso práctico</h2>
 <p class="lead">Un caso es una simulación realista: permite practicar sin arriesgar dinero ni personas.</p>
 <div class="g"><div class="c"><h3>Resolver problemas</h3><p>Identificar las causas de una situación que afecta a la empresa.</p></div><div class="c"><h3>Aprovechar recursos</h3><p>Usar bien el dinero, el personal y el tiempo.</p></div><div class="c"><h3>Reducir riesgos</h3><p>Analizar consecuencias antes de implementar.</p></div><div class="c"><h3>Alcanzar objetivos</h3><p>Establecer estrategias que mejoren los resultados.</p></div><div class="c"><h3>Evaluar el desempeño</h3><p>Comprobar si las decisiones realmente funcionan.</p></div></div></section>
@@ -169,7 +192,7 @@ small{color:var(--mute)}
 <div class="g"><div class="c"><h3>Analiza</h3><p>Diferentes situaciones y permite seleccionar las mejores alternativas.</p></div><div class="c"><h3>Establece</h3><p>Las acciones para alcanzar los objetivos de la organización.</p></div><div class="c"><h3>Influye</h3><p>Directamente en la planeación, la organización y la dirección de los recursos.</p></div></div></section>
 
 <section class="slide"><h2>Para recordar en general</h2>
-<div class="box" style="font-size:1.35em;margin-top:.5em">Tomar decisiones no es tirar una moneda al aire, sino seguir el proceso correcto para tener los resultados correctos.</div>
+<div class="box" style="font-size:1.45em;margin-top:.5em">Decidir bien no es adivinar, es seguir un proceso.</div>
 <p class="lead" style="margin-top:1.2em">Muchas gracias por su atención. ¿Tienen alguna pregunta?</p></section>
 
 </main>
@@ -179,12 +202,14 @@ small{color:var(--mute)}
 (function(){
 var S=[].slice.call(document.querySelectorAll('.slide')),i=0,
 bar=document.querySelector('#bar i'),mt=document.getElementById('mt');
+var SEC=[[0,'Integrante 1 · Introducción y ¿Qué es la toma de decisiones?'],[3,'Integrante 2 · Importancia y tipos de decisiones'],[7,'Integrante 3 · Proceso de la toma de decisiones, parte 1'],[9,'Integrante 4 · Proceso de la toma de decisiones, parte 2'],[14,'Integrante 5 · Requisitos de la toma de decisiones'],[18,'Integrante 6 · Caso práctico y conclusión']];
+function secOf(n){var r=SEC[0];SEC.forEach(function(x){if(n>=x[0])r=x});return r}
 function show(n){
 i=Math.max(0,Math.min(S.length-1,n));
 S.forEach(function(s,k){s.classList.toggle('on',k===i)});
 bar.style.width=((i+1)/S.length*100)+'%';
 mt.textContent=(i+1)+' / '+S.length;
-document.querySelector('main').scrollTop=0;
+document.getElementById('sec').textContent=secOf(i)[1];document.querySelector('main').scrollTop=0;
 try{location.hash='s'+(i+1)}catch(e){}
 }
 document.getElementById('nx').onclick=function(){show(i+1)};
@@ -193,6 +218,7 @@ document.addEventListener('keydown',function(e){
 if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();show(i+1)}
 if(e.key==='ArrowLeft'||e.key==='PageUp'){show(i-1)}
 });
+SEC.forEach(function(x,k){if(x[0]>0){var p=document.createElement('p');p.className='chip';p.textContent=x[1];S[x[0]].insertBefore(p,S[x[0]].firstChild)}});
 var h=parseInt((location.hash||'').replace('#s',''),10);show(h?h-1:0);
 
 var secs=1200,run=null,tm=document.getElementById('tm'),tg=document.getElementById('tg');
