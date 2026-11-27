@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Toma de decisiones · Equipo 2</title>
 <style>
-:root{--bg:#e6ebf1;--paper:#fff;--card:#f6f8fb;--ink:#1c2733;--mute:#5b6776;--gd:#b08a3a;--ac:#17375e;--line:#d0d8e2;--hd:#0e2a47;--hdink:#f2f5f9;--zb:#f1f4f8}
-@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#08121f;--paper:#10243a;--card:#16304d;--ink:#e9eff6;--mute:#a8b6c8;--gd:#d4ae60;--ac:#d4ae60;--line:#27425f;--hd:#071320;--zb:#14293f}}
-:root[data-theme=dark]{--bg:#08121f;--paper:#10243a;--card:#16304d;--ink:#e9eff6;--mute:#a8b6c8;--gd:#d4ae60;--ac:#d4ae60;--line:#27425f;--hd:#071320;--zb:#14293f}
+:root{--bg:#D4CCC1;--paper:#F6F3EE;--card:#ECE7DF;--ink:#333F57;--mute:#60676B;--gd:#AFA183;--ac:#333F57;--ac2:#4F5D76;--line:#C3BAAB;--hd:#333F57;--hdink:#F6F3EE;--zb:#EFEBE4}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#232B39;--paper:#2D3850;--card:#36435E;--ink:#F1EDE6;--mute:#D4CCC1;--gd:#AFA183;--ac:#D4CCC1;--ac2:#D4CCC1;--line:#4F5D76;--hd:#1D2430;--zb:#334059}}
+:root[data-theme=dark]{--bg:#232B39;--paper:#2D3850;--card:#36435E;--ink:#F1EDE6;--mute:#D4CCC1;--gd:#AFA183;--ac:#D4CCC1;--ac2:#D4CCC1;--line:#4F5D76;--hd:#1D2430;--zb:#334059}
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
 body{background:var(--bg);color:var(--ink);font:clamp(15px,1.55vw,20px)/1.55 Calibri,"Segoe UI",Helvetica,Arial,sans-serif;display:flex;flex-direction:column}
@@ -15,7 +15,7 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0;li
 h2{font-size:clamp(26px,3.8vw,44px);color:var(--ac);margin-bottom:.7em;padding-bottom:.4em;position:relative}
 h2::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--line)}
 h2::before{content:"";position:absolute;left:0;bottom:-1px;width:72px;height:3px;background:var(--gd);z-index:1}
-h3{font-size:1.02em;margin-bottom:.3em;color:var(--ac)}
+h3{font-size:1.02em;margin-bottom:.3em;color:var(--ac2)}
 header{background:var(--hd);color:var(--hdink);display:flex;align-items:center;gap:1em;padding:.6em 1.4em;font-size:.8em;border-bottom:3px solid var(--gd)}
 header b{color:var(--gd);letter-spacing:.1em;font-family:Georgia,serif} header .sp{flex:1}
 button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:3px;padding:.3em 1em}
@@ -46,10 +46,11 @@ td:first-child{font-weight:700;color:var(--ac)}
 .cover{color:var(--hdink);border:1px solid var(--gd);outline:1px solid var(--gd);outline-offset:-10px;padding:clamp(2em,6vw,4.5em);text-align:center}
 .cover h1{font-size:clamp(34px,7vw,80px);letter-spacing:.02em}
 .cover hr{width:90px;border:0;border-top:3px solid var(--gd);margin:1.2em auto}
-.cover p{color:#cdd6e3;margin:.5em auto;max-width:70ch}
+.cover p{color:#D4CCC1;margin:.5em auto;max-width:70ch}
+.cover .sub{font-size:1.15em;font-style:italic;max-width:48ch}.cover .meta{font-size:.95em;line-height:1.7}.cover .meta b{color:var(--gd)}.cover .int{margin-top:1.4em;font:700 1em Georgia,serif;color:var(--gd);letter-spacing:.08em}.names{list-style:none;padding:0;margin:.3em 0 1.2em;line-height:1.8}.names li{border-bottom:1px solid #ffffff22;max-width:26em;margin:0 auto;padding:.1em 0}.names li:last-child{border:0}
 .opt{display:flex;align-items:center;gap:.8em;margin:.6em 0}
-.opt b{width:2em;height:2em;display:grid;place-items:center;border:2px solid var(--gd);color:var(--gd);flex:none;font-family:Georgia,serif;border-radius:50%}
-.opt .t{flex:1}.opt .bar{height:8px;background:var(--line);margin-top:.25em;border-radius:4px}.opt .bar i{display:block;height:100%;background:var(--ac);width:0;transition:width .3s;border-radius:4px}
+.opt b{width:2em;height:2em;display:grid;place-items:center;border:2px solid var(--ac2);color:var(--ac2);flex:none;font-family:Georgia,serif;border-radius:50%}
+.opt .t{flex:1}.opt .bar{height:8px;background:var(--line);margin-top:.25em;border-radius:4px}.opt .bar i{display:block;height:100%;background:var(--ac2);width:0;transition:width .3s;border-radius:4px}
 details{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gd);padding:.4em 1em;margin:.4em 0;font-size:.93em;border-radius:3px}
 summary{cursor:pointer;font-weight:700;color:var(--ac)} details p{margin:.4em 0;color:var(--mute)}
 footer{display:flex;gap:.6em;align-items:center;padding:.5em 1.4em;background:var(--hd);color:var(--hdink);font-size:.8em;border-top:3px solid var(--gd)}
@@ -64,9 +65,12 @@ small{color:var(--mute)}
 <header><b>EQ 2</b><span>Toma de decisiones</span><span class="sp"></span><span id="tm">20:00</span><button id="tg">Iniciar</button><button id="th" aria-label="Cambiar tema">Tema</button></header>
 <div id="bar"><i></i></div>
 <main>
-<section class="slide"><div class="cover"><h1>Toma de decisiones</h1><hr><p>Qué es, cómo se hace y cómo aplicarla</p>
-<p>Ceron Ponce Jesús Salatiel · Galindo Estrella Ángel Santiago · Escamilla Victoria Erika · Hernández Pineda Valeria Quetzaly · Hernández Ceseña Paulo Jacobo · Pérez Martínez Leonardo</p>
-<p><small style="color:#cfd5e2">Administración · Equipo 2</small></p></div></section>
+<section class="slide"><div class="cover"><h1>Toma de decisiones</h1><hr>
+<p class="sub">Qué es la toma de decisiones, proceso de la toma de decisiones y requisitos de la toma de decisiones</p>
+<p class="meta"><b>Materia:</b> Taller de Administración<br><b>Maestra:</b> Fabiola Pérez Cerón<br><b>Grupo:</b> 1C &nbsp;·&nbsp; <b>Equipo 2</b></p>
+<p class="int">Integrantes</p>
+<ul class="names"><li>Ceron Ponce Jesús Salatiel</li><li>Galindo Estrella Ángel Santiago</li><li>Escamilla Victoria Erika</li><li>Hernández Pineda Valeria Quetzaly</li><li>Hernández Ceseña Paulo Jacobo</li><li>Pérez Martínez Leonardo</li></ul>
+<p class="meta">Pachuca de Soto, Hidalgo · 27 de noviembre de 2026</p></div></section>
 
 <section class="slide"><h2>Introducción</h2>
 <div class="box" style="margin-top:0">Para solucionar un problema, cualquier persona debe aplicar el proceso de toma de decisiones.</div>
@@ -168,18 +172,6 @@ small{color:var(--mute)}
 <div class="box" style="font-size:1.35em;margin-top:.5em">Tomar decisiones no es tirar una moneda al aire, sino seguir el proceso correcto para tener los resultados correctos.</div>
 <p class="lead" style="margin-top:1.2em">Muchas gracias por su atención. ¿Tienen alguna pregunta?</p></section>
 
-<section class="slide"><h2>Preguntas posibles</h2>
-<details><summary>¿Qué es la toma de decisiones?</summary><p>Elegir la mejor alternativa entre varias para resolver un problema o lograr un objetivo.</p></details>
-<details><summary>¿Cuáles son los pasos del proceso?</summary><p>Identificar el problema, reunir información, plantear alternativas, evaluar, elegir, implementar y evaluar resultados.</p></details>
-<details><summary>¿Por qué es importante decidir bien?</summary><p>Cada decisión afecta recursos, personas y resultados; de su calidad depende el éxito o el fracaso.</p></details>
-<details><summary>¿Qué se necesita para decidir bien?</summary><p>Información confiable, objetivos claros, alternativas reales, criterios, capacidad de análisis y responsabilidad.</p></details>
-<details><summary>¿Qué pasa si no se evalúan los resultados?</summary><p>No sabemos si funcionó, no corregimos a tiempo ni aprendemos. Ej.: lanzar un producto y nunca revisar las ventas.</p></details>
-<details><summary>¿Qué pasa si no hay suficiente información?</summary><p>Se decide con la mejor información disponible y se ajusta después evaluando los resultados.</p></details>
-<details><summary>¿Diferencia entre programada y no programada?</summary><p>La programada es repetitiva y se resuelve con reglas; la no programada es nueva, compleja o de alto riesgo.</p></details>
-<details><summary>¿Cuál modelo es mejor?</summary><p>Depende: racional con tiempo y datos, intuitivo en emergencias, consenso cuando se necesita compromiso.</p></details>
-<details><summary>¿Por qué es un proceso cíclico?</summary><p>Al evaluar se puede mantener, corregir o cambiar; si hay que cambiar, se reinicia el proceso.</p></details>
-<details><summary>¿Qué es una matriz de decisión?</summary><p>Tabla que califica cada alternativa según los criterios; gana la que obtiene el mejor resultado.</p></details>
-<details><summary>¿Qué pasa si solo hay una alternativa?</summary><p>No hay decisión, hay obligación; por eso se requieren alternativas reales.</p></details></section>
 </main>
 <footer><button id="pv">Anterior</button><button id="nx">Siguiente</button><span class="sp"></span><span id="mt"></span></footer>
 
